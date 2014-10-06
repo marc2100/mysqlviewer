@@ -76,7 +76,7 @@ struct DB_STRUCT *read_row_mysql (guint ID){
 
 	//die Länge der Einträge speichern
 	//mysql_fetch_lengths darf erst nach ..fetch_row() aufgerufen werden..
-	db_data->pixbuf_size = mysql_fetch_lengths(result);
+	db_data->element_size = mysql_fetch_lengths(result);
 	//pointerarry anlegen um Daten zu speichern
 	db_data->ptr_array = g_ptr_array_new ();
 	gint i = 0;
@@ -84,18 +84,19 @@ struct DB_STRUCT *read_row_mysql (guint ID){
    {
 			//ergebnis in das pointerarray packen
 
-			//das Bild laden
-			if (i==COLUMN_Bild)
+			//das Bild laden, sofern vorhanden (element-size > 0)
+			if (i==COLUMN_Bild&&db_data->element_size[i])
 			{
 				//Variablen für das Laden des Bildes
 				GdkPixbufLoader *pixbuf_loader = NULL;
 				GdkPixbuf *pixbuf = NULL;
 				GError *error=NULL;
+
 				//neuen Loader erstellen, und Bild laden
 				pixbuf_loader = gdk_pixbuf_loader_new();
 				//signal “size-prepared” verknüpfen, um Bild zu skalieren
 				g_signal_connect(pixbuf_loader,"size-prepared",G_CALLBACK(image_scale_event),NULL);
-				gdk_pixbuf_loader_write (pixbuf_loader,(const guchar*)row[i],(gsize)db_data->pixbuf_size[i],&error);
+				gdk_pixbuf_loader_write (pixbuf_loader,(const guchar*)row[i],(gsize)db_data->element_size[i],&error);
 				//auf Error prüfen
 				if (error!=NULL)
 				{
@@ -106,7 +107,7 @@ struct DB_STRUCT *read_row_mysql (guint ID){
 				gdk_pixbuf_loader_close (pixbuf_loader,&error);
 				if (error!=NULL)
 				{
-					g_warning("Beim schließen des PixBufLoaders ist folgender Fehler aufgetreten:\n%s\nBild sollte %lu Bytes habe",error->message,db_data->pixbuf_size[i]);
+					g_warning("Beim schließen des PixBufLoaders ist folgender Fehler aufgetreten:\n%s",error->message);
 					g_error_free(error);
 				}
 				//das fertige Pixbuf abholen

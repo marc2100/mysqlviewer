@@ -12,7 +12,7 @@
 
 struct DB_STRUCT{
 gint num_fields;				///die Anzahl der Spalten
-gulong *pixbuf_size;		///die größe in Bytes für alle Spalten
+gulong *element_size;		///die größe in Bytes für alle Spalten
 GPtrArray *ptr_array;		///speichert die Spalteneinträge
 };
 
