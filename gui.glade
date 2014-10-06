@@ -317,16 +317,28 @@
                   </packing>
                 </child>
                 <child>
-                  <object class="GtkSpinner" id="spinner1">
+                  <object class="GtkVBox" id="vbox2">
                     <property name="visible">True</property>
                     <property name="can_focus">False</property>
+                    <child>
+                      <object class="GtkSpinner" id="spinner1">
+                        <property name="visible">True</property>
+                        <property name="can_focus">False</property>
+                      </object>
+                      <packing>
+                        <property name="expand">True</property>
+                        <property name="fill">True</property>
+                        <property name="position">0</property>
+                      </packing>
+                    </child>
+                    <child>
+                      <placeholder/>
+                    </child>
                   </object>
                   <packing>
                     <property name="left_attach">1</property>
                     <property name="right_attach">2</property>
                     <property name="bottom_attach">2</property>
-                    <property name="x_options">GTK_SHRINK | GTK_FILL</property>
-                    <property name="y_options">GTK_SHRINK</property>
                   </packing>
                 </child>
               </object>

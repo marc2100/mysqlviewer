@@ -4,3 +4,4 @@
  
  user = db_user
  password = db_password
+ host = mysql-server

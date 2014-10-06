@@ -20,7 +20,12 @@ gchar *keyfile_get_db_user (void);
 
 ///gibt einen String mit dem Passwort für die Datenbank zurück
 ///@warning muss mit g_free freigegeben werden
-///@return db_password
+///@return gchar *db_password
 gchar *keyfile_get_db_password (void);
+
+///gibt einen String mit dem Host für die Datenbank zurück
+///@warning muss mit g_free freigegeben werden
+///@return gchar *db_host
+gchar *keyfile_get_db_host (void);
 
 #endif // KEYFILE_H

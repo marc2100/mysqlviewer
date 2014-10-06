@@ -7,6 +7,8 @@ gint anzahl_zeilen;
 GtkListStore *store;
 };
 
+//lokale Variablen
+gboolean thread_status = FALSE;
 
 //lokale funktionen
 gpointer *thread_refresh_button (gpointer data);
@@ -59,17 +61,18 @@ void button_refresh_clicked(GtkWidget *widget, gpointer data)
 			// ansonsten einen neuen store erzeugen
 			store = gui_get_list_store();
 		}
-		//store in Thread übergeben
+		//store in Thread-variable übergeben
 		thread_data->store = store;
 		//thread starten
 		thread_id=g_thread_new("refresh_thread",(GThreadFunc)thread_refresh_button,(gpointer)thread_data);
 		//Timer starten um Thread wieder zu "fangen"
 		g_timeout_add (100,thread_catcher_refresh,(gpointer)thread_id);
-
 	}
 	//Sonst beenden
 	else
+	{
 	g_print("Eingabe war keine Zahle oder 0 ;)\n");
+	}
 	return;
 }
 
@@ -92,25 +95,45 @@ gpointer *thread_refresh_button (gpointer data){
 
 	//Speicher freigeben
 	g_free(thread);
-
+	thread_status = TRUE;
 	g_thread_exit (thread_store);
-	return thread_store;
+	//wird nicht erreicht
+	return (gpointer)thread_store;
 }
 
 gboolean thread_catcher_refresh (gpointer data){
 	GtkListStore *store=NULL;
+	//check ob thread fertig
+	//nötig, da die GUI sonst einfriert
+	if (!thread_status)
+	{
+		return TRUE;
+	}
 	//auf Thread warten
 	store = (GtkListStore*)g_thread_join ((GThread*)data);
+	//status = false setzten, solange kein neuer Thread schreibend zugreifen kann
+	thread_status = FALSE;
 	//den Button wieder freischalten
 	g_object_set(gui_get_button_refresh(),"sensitive",TRUE,NULL);
 	//Das Model mir dem Viewer verbinden
-	gtk_tree_view_set_model (gui_get_gtk_tree_viewer(),store);
+	gtk_tree_view_set_model (gui_get_gtk_tree_viewer(),(GtkTreeModel*)store);
 	//Spinner unsichbar machen und deaktivieren
 	g_object_set(gui_get_spinner(),"visible",FALSE,NULL);
 	gtk_spinner_stop (gui_get_spinner());
-	//store freigeben
+	//store freigeben, er bleibt bestehen, da er mit dem Viewer verknüpft ist
 	g_object_unref(store);
+
 	return FALSE;
 }
 
+//Ändert die Hintergrundfarbe der Buttons, wenn mit Maus darüber
+void buttons_entered (GtkWidget *widget, gpointer data){
+  GdkRGBA color;
+  color.red = 27000;
+  color.green = 30325;
+  color.blue = 30000;
+  color.alpha = 15000;
+  gtk_widget_override_background_color(widget, GTK_STATE_PRELIGHT, &color);
+
+}
 

@@ -8,6 +8,7 @@
 
 //G_CALLBACK-Funktionen
 void button_refresh_clicked(GtkWidget *widget, gpointer data);
+void buttons_entered (GtkWidget *widget, gpointer data);
 void button_exit_clicked(GtkWidget *widget, gpointer data);
 
 

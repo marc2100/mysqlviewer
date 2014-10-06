@@ -46,6 +46,9 @@ void gui_init (void){
 	g_signal_connect(gui->mainwindow,"destroy",G_CALLBACK(gtk_main_quit), NULL);
 	g_signal_connect(gui->button_refresh,"clicked",G_CALLBACK(button_refresh_clicked), (gpointer*)gui);
 	g_signal_connect(gui->button_exit,"clicked",G_CALLBACK(button_exit_clicked), NULL);
+	//Buttons einfärben, wenn mit Maus darüber
+	g_signal_connect(gui->button_refresh,"enter",G_CALLBACK(buttons_entered), NULL);
+	g_signal_connect(gui->button_exit,"enter",G_CALLBACK(buttons_entered), NULL);
 
 	//N_COLUMNS-1 Spalten erzeugen
 	GtkCellRenderer *renderer;

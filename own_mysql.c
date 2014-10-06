@@ -19,16 +19,16 @@ void get_mysql_version (void){
 struct DB_STRUCT *read_row_mysql (guint ID){
 	MYSQL *con = mysql_init(NULL);
 	MYSQL_ROW row;
-	gchar *user = NULL,*password = NULL;
+	gchar *user = NULL,*password = NULL,*host=NULL;
 
 	struct DB_STRUCT *db_data = g_malloc(sizeof(struct DB_STRUCT));
 
 	//Nutzernamen abrufen
 	user = keyfile_get_db_user ();
 	password = keyfile_get_db_password ();
-
+	host = keyfile_get_db_host();
 	//Verbindung öffnen
-  if (mysql_real_connect(con, "mysql-server", user, password,
+  if (mysql_real_connect(con, host, user, password,
           "eva_pferde", 0, NULL, 0) == NULL)
   {
       fprintf(stderr, "%s\n", mysql_error(con));

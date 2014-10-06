@@ -111,5 +111,39 @@ if (error!=NULL||password==NULL)
 }
 
 return password;
+}
+
+//gibt einen String mit dem Host für die Datenbank zurück
+//@warning muss mit g_free freigegeben werden
+//@return gchar *db_host
+gchar *keyfile_get_db_host (void){
+GError *error = NULL;
+gchar *db_host = NULL;
+
+//checken ob Keyfile eingelesen wurde
+if (global_keyfile==NULL)
+{
+	g_warning ("Noch kein \"keyfile_init()\" aufgerufen\n");
+	if (!keyfile_init (NULL))
+	{
+		g_error ("Konnte Keyfile nicht laden, bitte erst keyfile_init() aufrufen!");
+	}
+}
+
+
+//String aus Keyfile laden
+db_host = g_key_file_get_string(	global_keyfile,
+															"datenbank",
+															"host",
+															&error);
+//auf fehler prüfen
+if (error!=NULL||db_host==NULL)
+{
+	g_error("%s",error->message);
+	g_error_free(error);
+	error = NULL;
+}
+
+return db_host;
 
 }
