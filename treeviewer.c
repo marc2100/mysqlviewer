@@ -21,7 +21,7 @@ void gui_init (void){
 	gui->texteingabe		= GTK_WIDGET (gtk_builder_get_object(builder,"entry1"));
 	gui->button_refresh	= GTK_WIDGET (gtk_builder_get_object(builder,"button_refresh"));
 	gui->button_exit		= GTK_WIDGET (gtk_builder_get_object(builder,"button_exit"));
-	gui->progressbar		= GTK_WIDGET (gtk_builder_get_object(builder,"progressbar1"));
+	gui->statusbar		= GTK_WIDGET (gtk_builder_get_object(builder,"statusbar1"));
 	gui->texteingabe_spalten_anzahl= GTK_WIDGET (gtk_builder_get_object(builder,"entry2"));
 	gui->spinner				= GTK_WIDGET (gtk_builder_get_object(builder,"spinner1"));
 

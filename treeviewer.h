@@ -14,7 +14,7 @@ struct GUI_ELEMENTE{
 	GtkWidget *texteingabe_spalten_anzahl;
 	GtkWidget *button_refresh;
 	GtkWidget *button_exit;
-	GtkWidget *progressbar;
+	GtkWidget *statusbar;
 	GtkWidget *spinner;
 };
 
