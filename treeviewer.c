@@ -30,6 +30,7 @@ void gui_init (void){
   gtk_window_set_default_size(GTK_WINDOW(gui->mainwindow), 1500, 400);
   gtk_window_set_position(GTK_WINDOW(gui->mainwindow), GTK_WIN_POS_CENTER);
 
+
 	//GtkSpinner unsichtbar machen
 	g_object_set(gui->spinner,"visible",FALSE,NULL);
 
