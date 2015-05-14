@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2014 "Marcus Pries"
+Copyright (c) 2014-2015 "Marcus Pries"
 
 This file is part of mysqlviewer.
 
@@ -42,7 +42,7 @@ GPtrArray *read_mysql_bd_row (void);
 struct DB_STRUCT *read_row_mysql (guint ID);
 
 
-//gibt das Bild
+//gibt das Bild zurück
 struct BILD_STRUCT *picture_mysql (gchar *name,MYSQL_RES* result);
 
 #endif // OWN_MYSQL_H

@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2014 "Marcus Pries"
+Copyright (c) 2014-2015 "Marcus Pries"
 
 This file is part of mysqlviewer.
 
@@ -32,7 +32,7 @@ void gui_init (void){
 
 	//Builder erstellen
 	GtkBuilder *builder = NULL;
-	builder = gtk_builder_new_from_file("gui.glade");
+	builder = gtk_builder_new_from_file("gui2.glade");
 	struct GUI_ELEMENTE *gui = &gui_global;
 
 	gui->mainwindow 		= GTK_WIDGET (gtk_builder_get_object(builder,"window1"));
@@ -46,7 +46,7 @@ void gui_init (void){
 
 	//Eigenschaften des Main-Window setzen
 	gtk_window_set_title(GTK_WINDOW(gui->mainwindow), "MySQL-Viewer");
-  gtk_window_set_default_size(GTK_WINDOW(gui->mainwindow), 1500, 400);
+  gtk_window_set_default_size(GTK_WINDOW(gui->mainwindow), 1010, 200);
   gtk_window_set_position(GTK_WINDOW(gui->mainwindow), GTK_WIN_POS_CENTER);
 
 

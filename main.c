@@ -1,5 +1,5 @@
 /*
-Copyright (c) 2014 "Marcus Pries"
+Copyright (c) 2014-2015 "Marcus Pries"
 
 This file is part of mysqlviewer.
 
@@ -34,6 +34,7 @@ int main (int argc, char *argv[])
   gtk_init (&argc, &argv);
   g_log_set_handler ("Gtk", G_LOG_LEVEL_WARNING, g_log_default_handler, NULL);
 
+	g_print("GTK Version %d.%d\n",GTK_MAJOR_VERSION,GTK_MICRO_VERSION);
   //Keyfile laden
   keyfile_init (NULL);
 
